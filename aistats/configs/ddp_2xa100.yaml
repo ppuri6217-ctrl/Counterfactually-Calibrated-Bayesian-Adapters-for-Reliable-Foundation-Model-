@@ -1,0 +1,79 @@
+# Configuration for distributed training on 2x A100 GPUs
+# Optimized for high-memory GPUs with larger batch sizes
+
+# Model configuration (same as default)
+model:
+  input_dim: null
+  num_classes: 2
+  foundation_dim: 64  # Increased for larger model
+  adapter_rank: 16    # Increased rank for better capacity
+  hidden_dims: [256, 128]  # Larger hidden dimensions
+
+# Data configuration - optimized for distributed training
+data:
+  root: "data"
+  train_file: "heart_disease_uci.csv"
+  val_split: 0.2
+  test_split: 0.2
+  batch_size: 128  # Larger batch size for A100s
+  num_workers: 8   # More workers for faster data loading
+  shift_type: "age"
+  
+# Training configuration
+training:
+  num_epochs: 200  # More epochs for larger model
+  patience: 25
+  save_dir: "checkpoints"
+  
+# Optimization configuration
+optim:
+  lr_foundation: 2.0e-3  # Higher learning rates for larger batches
+  lr_adapter: 1.0e-2
+  lr_others: 2.0e-3
+  weight_decay: 1.0e-4   # Stronger regularization
+  scheduler: "cosine"
+  
+# Loss configuration
+loss:
+  type: "focal"  # Use focal loss for better performance
+  focal_alpha: 1.0
+  focal_gamma: 2.0
+  label_smoothing: 0.1
+  kl_weight_schedule: "linear"
+  
+# Uncertainty configuration
+uncertainty:
+  enable: true
+  num_mc_samples: 10  # More samples for better uncertainty estimates
+  uncertainty_weight: 0.05
+  
+# Calibration configuration
+calibration:
+  enable: true
+  temperature_init: 1.0
+  density_ratio_weight: 0.1
+  
+# Evaluation configuration
+evaluation:
+  metrics: ["accuracy", "f1_score", "auc", "ece", "brier_score"]
+  uncertainty_analysis: true
+  shift_analysis: true
+  
+# Logging configuration
+logging:
+  log_interval: 5  # More frequent logging
+  save_predictions: true
+  save_uncertainties: true
+  
+# Distributed training configuration
+distributed:
+  backend: "nccl"
+  init_method: "env://"
+  world_size: 2
+  rank: null  # Will be set by torchrun
+  
+# Reproducibility
+seed: 42
+
+# Device configuration
+device: "cuda"

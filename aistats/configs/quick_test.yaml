@@ -1,0 +1,69 @@
+# Quick test configuration for development and debugging
+# Minimal settings for fast iteration
+
+# Model configuration - smaller for quick testing
+model:
+  input_dim: null
+  num_classes: 2
+  foundation_dim: 16
+  adapter_rank: 4
+  hidden_dims: [64, 32]
+
+# Data configuration
+data:
+  root: "data"
+  train_file: "heart_disease_uci.csv"
+  val_split: 0.3  # Larger validation split for quick testing
+  test_split: 0.3
+  batch_size: 32
+  num_workers: 0  # Single-threaded for debugging
+  shift_type: "random"
+  
+# Training configuration - minimal for quick testing
+training:
+  num_epochs: 10
+  patience: 5
+  save_dir: "test_checkpoints"
+  
+# Optimization configuration
+optim:
+  lr_foundation: 1.0e-2  # Higher LR for quick convergence
+  lr_adapter: 2.0e-2
+  lr_others: 1.0e-2
+  weight_decay: 1.0e-4
+  scheduler: "step"
+  
+# Loss configuration
+loss:
+  type: "cross_entropy"
+  kl_weight_schedule: "constant"
+  
+# Uncertainty configuration - minimal
+uncertainty:
+  enable: false  # Disable for speed
+  num_mc_samples: 3
+  uncertainty_weight: 0.1
+  
+# Calibration configuration
+calibration:
+  enable: true
+  temperature_init: 1.0
+  density_ratio_weight: 0.1
+  
+# Evaluation configuration - basic metrics only
+evaluation:
+  metrics: ["accuracy", "f1_score"]
+  uncertainty_analysis: false
+  shift_analysis: false
+  
+# Logging configuration
+logging:
+  log_interval: 1  # Log every epoch
+  save_predictions: false
+  save_uncertainties: false
+  
+# Reproducibility
+seed: 42
+
+# Device configuration
+device: "auto"

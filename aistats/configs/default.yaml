@@ -1,0 +1,72 @@
+# Default configuration for C²BA Heart Disease Classification
+# This configuration provides baseline settings for single GPU training
+
+# Model configuration
+model:
+  input_dim: null  # Will be set automatically based on data
+  num_classes: 2
+  foundation_dim: 32
+  adapter_rank: 8
+  hidden_dims: [128, 96]
+
+# Data configuration
+data:
+  root: "data"
+  train_file: "heart_disease_uci.csv"  # or heart.csv
+  val_split: 0.2
+  test_split: 0.2
+  batch_size: 64
+  num_workers: 2
+  shift_type: "age"  # Options: age, gender, severity, feature, random
+  
+# Training configuration
+training:
+  num_epochs: 100
+  patience: 15
+  save_dir: "checkpoints"
+  
+# Optimization configuration
+optim:
+  lr_foundation: 1.0e-3
+  lr_adapter: 5.0e-3
+  lr_others: 1.0e-3
+  weight_decay: 1.0e-5
+  scheduler: "cosine"  # Options: cosine, step, plateau
+  
+# Loss configuration
+loss:
+  type: "cross_entropy"  # Options: cross_entropy, focal, label_smoothing
+  focal_alpha: 1.0
+  focal_gamma: 2.0
+  label_smoothing: 0.1
+  kl_weight_schedule: "linear"  # Options: linear, constant
+  
+# Uncertainty configuration
+uncertainty:
+  enable: true
+  num_mc_samples: 5
+  uncertainty_weight: 0.1
+  
+# Calibration configuration
+calibration:
+  enable: true
+  temperature_init: 1.0
+  density_ratio_weight: 0.1
+  
+# Evaluation configuration
+evaluation:
+  metrics: ["accuracy", "f1_score", "auc", "ece", "brier_score"]
+  uncertainty_analysis: true
+  shift_analysis: true
+  
+# Logging configuration
+logging:
+  log_interval: 10
+  save_predictions: true
+  save_uncertainties: true
+  
+# Reproducibility
+seed: 42
+
+# Device configuration
+device: "auto"  # Options: auto, cpu, cuda
