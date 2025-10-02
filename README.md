@@ -280,6 +280,87 @@ For questions regarding the methodology or implementation:
 - GitHub Issues for technical questions and bug reports
 - Email: research@anonymous-institution.edu for research inquiries
 
+## Reproducibility and Code Availability
+
+### Source Code and Dependencies
+All source code is provided in this repository with complete dependency specifications. The implementation includes:
+- Complete C²BA framework implementation in PyTorch
+- All training and evaluation scripts
+- Configuration files for different experimental setups
+- Docker containers for reproducible environments
+- Comprehensive documentation and examples
+
+**Repository**: [GitHub Repository](https://github.com/your-org/c2ba)  
+**Dependencies**: All external libraries specified in `requirements.txt` and `pyproject.toml`
+
+### Experimental Reproducibility
+
+#### Code and Data Availability
+- **Training Code**: Complete training pipeline in `scripts/train.py` with distributed support
+- **Evaluation Code**: Comprehensive evaluation framework in `scripts/eval.py`
+- **Data Processing**: Full preprocessing pipeline in `src/c2ba/data.py`
+- **Model Implementation**: Complete C²BA architecture in `src/c2ba/models.py`
+- **Experimental Instructions**: Detailed setup and execution instructions provided
+
+#### Training Details and Hyperparameters
+- **Configuration Management**: All hyperparameters specified in YAML configuration files
+- **Training Procedures**: Detailed training protocols in configuration files and documentation
+- **Hyperparameter Selection**: Default configurations provided for different scenarios
+- **Reproducibility**: Random seed management and deterministic training procedures
+
+#### Evaluation Metrics and Statistics
+- **Calibration Metrics**: Expected Calibration Error (ECE), Brier Score, Reliability Diagrams
+- **Uncertainty Metrics**: Epistemic/Aleatoric decomposition, Predictive Entropy
+- **Performance Metrics**: Accuracy, F1-Score, AUC-ROC with confidence intervals
+- **Statistical Testing**: Multiple random seed evaluation for statistical significance
+- **Error Analysis**: Comprehensive uncertainty and calibration analysis tools
+
+#### Computing Infrastructure
+- **Hardware Requirements**: Specifications for CPU and GPU training provided
+- **Scalability**: Support for single GPU, multi-GPU, and distributed training
+- **Docker Support**: Containerized environments for consistent execution
+- **Cloud Deployment**: Instructions for cloud-based training and evaluation
+- **Resource Estimation**: Memory and compute requirements documented
+
+## Implementation Checklist
+
+### ✅ Model and Algorithm Implementation
+- [x] **Mathematical Framework**: Complete description of C²BA methodology in documentation
+- [x] **Algorithm Implementation**: Full implementation of Bayesian adapters with hierarchical priors
+- [x] **Complexity Analysis**: Computational complexity documented in code comments
+- [x] **Source Code**: Complete anonymized source code provided with dependency specifications
+
+### ✅ Empirical Results Reproducibility  
+- [x] **Reproduction Instructions**: Complete code and instructions for reproducing results
+- [x] **Training Details**: All hyperparameters, data splits, and training procedures documented
+- [x] **Evaluation Metrics**: Clear definition of calibration and uncertainty metrics implemented
+- [x] **Statistical Analysis**: Multiple seed evaluation and confidence interval computation
+- [x] **Computing Infrastructure**: Hardware specifications and scalability options documented
+
+### 📁 Repository Structure for Reproducibility
+```
+c2ba/
+├── src/c2ba/                    # Complete implementation
+│   ├── models.py               # ✅ C²BA architecture
+│   ├── trainer.py              # ✅ Training procedures
+│   ├── utils.py                # ✅ Evaluation metrics
+│   └── calibration.py          # ✅ Counterfactual calibration
+├── scripts/
+│   ├── train.py                # ✅ Training reproduction
+│   └── eval.py                 # ✅ Evaluation reproduction
+├── configs/                    # ✅ All hyperparameters
+├── requirements.txt            # ✅ Dependencies
+├── Dockerfile                  # ✅ Reproducible environment
+└── README.md                   # ✅ Complete documentation
+```
+
+### 🔬 Experimental Validation
+- [x] **Baseline Comparisons**: Implementation supports comparison with LoRA, Bayesian LoRA
+- [x] **Ablation Studies**: Modular design enables component-wise evaluation
+- [x] **Cross-Validation**: Support for multiple evaluation protocols
+- [x] **Statistical Significance**: Multiple seed evaluation framework
+- [x] **Calibration Analysis**: Comprehensive calibration evaluation tools
+
 ## Acknowledgments
 
 This work builds upon foundational research in Bayesian deep learning, causal inference, and uncertainty quantification. We acknowledge the research community's contributions to reliable machine learning and the importance of trustworthy AI in high-stakes applications.
